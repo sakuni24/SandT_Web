@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import {Container,Card, Col, CardHeader, CardFooter, CardBody, Row} from "reactstrap";
+import {Container,Card, CardHeader, CardBody } from "reactstrap";
 import AdminNav from "../../../Components/AdminNav.component";
 
 export default class EditEvents extends Component {
