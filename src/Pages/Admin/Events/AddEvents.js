@@ -99,7 +99,8 @@ export default class Dashboard extends Component {
                 date: this.state.date,
                 venue: this.state.venue,
                 description: this.state.description,
-                headCount: this.state.headCount
+                headCount: this.state.headCount,
+                available: this.state.headCount
             };
             console.log(obj);
             axios.post("http://localhost:8080/addEvent", obj)
