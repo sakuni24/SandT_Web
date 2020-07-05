@@ -6,13 +6,14 @@ import AdminRoutes from "./Pages/Admin/AdminRoutes";
 class App extends Component {
   render(){
     return (
-      <div>
+      <React.Fragment>
         <Router>
           <Route path="/admin" component={AdminRoutes}/>
         </Router>
-      </div>
+        </React.Fragment>
     );
   } 
 }
 
 export default App;
+

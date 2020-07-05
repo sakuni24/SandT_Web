@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-
+import AdminNav from "../../Components/AdminNav.component";
 export default class Dashboard extends Component {
     render() {
         return (
-            <div>
-                yaay!
-            </div>
+            <React.Fragment>
+                <AdminNav/>
+            </React.Fragment>
         );
     }
 }
