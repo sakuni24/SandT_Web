@@ -9,7 +9,7 @@ const AdminNav = (props) => {
   return (
     <React.Fragment>
       <Navbar color="info" light>
-        <NavbarBrand href="/" className="mr-auto">S & T Admin Dashboard</NavbarBrand>
+        <NavbarBrand href="/admin/dashboard" className="mr-auto">S & T Admin Dashboard</NavbarBrand>
         <NavbarToggler color="dark" onClick={toggleNavbar} className="mr-2" />
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>

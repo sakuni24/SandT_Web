@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import {Spinner, Col, Row, Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {Spinner, Col, Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+//import {Row} from 'react-bootstrap';
 import AdminNav from "../../../Components/AdminNav.component";
 import Logo from "../../../Images/logo.jpg";
 export default class Dashboard extends Component {
