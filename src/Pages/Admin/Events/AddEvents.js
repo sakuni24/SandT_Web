@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import {Spinner, Col, Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap';
-//import {Row} from 'react-bootstrap';
+import { Container, Spinner, Row, Col, Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import DatePicker from 'reactstrap-date-picker';
 import AdminNav from "../../../Components/AdminNav.component";
 import Logo from "../../../Images/logo.jpg";
-export default class Dashboard extends Component {
 
+export default class Dashboard extends Component {
+   
+    
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
@@ -19,6 +21,7 @@ export default class Dashboard extends Component {
             venue: "",
             description: "",
             headCount: "",
+            dateValue: new Date().toISOString()
         };
     }
 
@@ -28,6 +31,13 @@ export default class Dashboard extends Component {
 
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
+        
+    };
+
+    onChangeDate(value){
+        this.setState({
+            dateValue: value,
+        });   
     };
 
     reset = e => {
@@ -39,6 +49,7 @@ export default class Dashboard extends Component {
             venue: "",
             description: "",
             headCount: "",
+            dateValue: new Date().toISOString()
 
         });
         document.getElementById("form").reset();
@@ -51,6 +62,10 @@ export default class Dashboard extends Component {
             error = true;
             alertMsg = "Name can't be empty";
         }
+        if (document.getElementById("datepicker").value.substring(0, 10).length < 1) {
+            error = true;
+            alertMsg = "You have to pick a real date";
+        }
         if (this.state.venue.length < 1) {
             error = true;
             alertMsg = "Vanue can't be empty";
@@ -59,11 +74,19 @@ export default class Dashboard extends Component {
             error = true;
             alertMsg = "Description can't be empty";
         }
+        parseInt(this.state.headCount)
+        if (parseInt(this.state.headCount) === 0) {
+            error = true;
+            alertMsg = "Count can't be zero";
+        }
         if (this.state.headCount.length < 1) {
             error = true;
             alertMsg = "Count can't be empty";
         }
-        
+        if (parseInt(this.state.headCount) < 0) {
+            error = true;
+            alertMsg = "Count can't be a negative value";
+        }
     
         this.setState({alertMsg: alertMsg});
         return error;  
@@ -79,7 +102,7 @@ export default class Dashboard extends Component {
         if(!error){
             const obj = {
                 name: this.state.name,
-                date: this.state.date,
+                date: document.getElementById("datepicker").value.substring(0, 10),
                 venue: this.state.venue,
                 description: this.state.description,
                 headCount: this.state.headCount,
@@ -100,8 +123,7 @@ export default class Dashboard extends Component {
                         alert: true,
                         loading: false
                     });
-                });
-            //        
+                });        
         }
         else{
             this.setState({ 
@@ -115,58 +137,86 @@ export default class Dashboard extends Component {
         return (
             <React.Fragment>
                 <AdminNav/>
-                    <center>
-                    <Col xs="6">  
-                    <br/><br/><br/><br/>
-                        <center>
-                            <img src={Logo} alt="S & T Group" style={{justifyContent: 'center',alignItems: 'center',}}/>
-                            
-                                <h4>S & T Group</h4>
-                                Add a new event
-                           
-                        </center>
-                    </Col>
-
-                    <Col xs="5">
-                        <br/>
-                        <Col>
-                            <Form id="form" onSubmit={this.onSubmit}>
-                                <FormGroup>
-                                    <Label for="name">Event Name</Label>
-                                    <Input type="text" name="name" id="name" placeholder="Astro" onChange={this.onChange}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="date">Date</Label>
-                                    <Input type="text" name="date" id="date" placeholder="2020-01-01" onChange={this.onChange}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="venue">Venue</Label>
-                                    <Input type="text" name="venue" id="venue" placeholder="Colombo" onChange={this.onChange}/>
-                                </FormGroup>           
-                                <FormGroup>
-                                    <Label for="description">Description</Label>
-                                    <Input type="textarea" name="description" id="description" onChange={this.onChange}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="headCount">Head Count</Label>
-                                    <Input type="number" name="headCount" id="headCount" placeholder="25" onChange={this.onChange}/>
-                                </FormGroup>
-                                { this.state.loading ?
-                                    <Spinner animation="border" className="spinner2" alignItems="center"/>
-                                : null}
-                                { this.state.alert ?
-                                    <Alert color="danger" status={this.state.alert}>
-                                        {this.state.alertMsg}
-                                    </Alert>
-                                : null}
-                                <Button color="info" onClick={this.reset}>Reset</Button>
-                                <Button color="info" type="submit">Add</Button>    
-                            </Form>
+                <Container>
+                    <Row>
+                        <Col xs="12" sm="5">
+                            <div>
+                                <div className="center">
+                                    <img src={Logo} alt="S & T Group" style={{justifyContent: 'center',alignItems: 'center',}}/>
+                                    
+                                        <h4>S & T Group</h4>
+                                        Add a new event
+                                
+                                </div>
+                            </div>
                         </Col>
-                    </Col>
-                    </center>
+
+                        <Col  xs="12" sm="7">
+                            <div className="center">
+                                <Form id="form" onSubmit={this.onSubmit}>
+                                    <Row>
+                                        <Col xs="12" sm="8">
+                                            <FormGroup>
+                                                <Label for="name">Event Name</Label>
+                                                <Input type="text" name="name" id="name" placeholder="Astro" onChange={this.onChange}/>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col xs="12" sm="4">
+                                            <FormGroup>
+                                                <Label for="date">Date</Label>
+                                                <DatePicker id="datepicker" value={this.state.dateValue}  onChange={(v) => this.onChangeDate(v)}/>
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+
+                                    <Row>
+                                        <Col xs="12" sm="9">
+                                            <FormGroup>
+                                                <Label for="venue">Venue</Label>
+                                                <Input type="text" name="venue" id="venue" placeholder="Colombo" onChange={this.onChange}/>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col xs="12" sm="3">
+                                            <FormGroup>
+                                                <Label for="headCount">Head Count</Label>
+                                                <Input height="2" type="number" name="headCount" id="headCount" placeholder="25" onChange={this.onChange}/>
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+           
+                                    <FormGroup>
+                                        <Label for="description">Description</Label>
+                                        <Input type="textarea" name="description" id="description" onChange={this.onChange}/>
+                                    </FormGroup>
+                                    
+                                    <Row xs="12" sm="12">
+                                        <center>
+                                            { this.state.loading ?
+                                                <Spinner animation="border" className="spinner2" alignItems="center"/>
+                                            : null}
+                                        </center>
+                                    </Row>
+                                    
+                                    { this.state.alert ?
+                                        <Alert color="info" status={this.state.alert}>
+                                            {this.state.alertMsg}
+                                        </Alert>
+                                    : null}
+                                    <Row>
+                                        <Col xs="6" sm="6">
+                                            <Button outline color="info" onClick={this.reset} block>Reset</Button>
+                                        </Col>
+                                        <Col xs="6" sm="6">
+                                            <Button outline color="info" type="submit" length="100" block>Add</Button>
+                                        </Col>
+                                    </Row>        
+                                </Form>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
             </React.Fragment>
-          );
-        }  
+        );
+    }  
 }
 
