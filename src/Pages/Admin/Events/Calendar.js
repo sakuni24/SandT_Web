@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import {Container, Button} from "reactstrap";
+import {Container} from "reactstrap";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
