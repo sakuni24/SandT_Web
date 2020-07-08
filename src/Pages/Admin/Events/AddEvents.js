@@ -14,7 +14,7 @@ export default class Dashboard extends Component {
     
         this.state = {
             loading: false,
-            alert: false,
+            alert: 0,
             alertMsg: "",
             name: "",
             date: "",
@@ -26,7 +26,7 @@ export default class Dashboard extends Component {
     }
 
     closeAlert = () => {
-        this.setState({ alert: false });
+        this.setState({ alert: 0 });
     };
 
     onChange = e => {
@@ -42,7 +42,7 @@ export default class Dashboard extends Component {
 
     reset = e => {
         this.setState({
-            alert: false,
+            alert: 0,
             alertMsg: "",
             name: "",
             date: "",
@@ -97,7 +97,7 @@ export default class Dashboard extends Component {
         const error = this.validate();
         this.setState({ 
             loading: true,
-            alert: false
+            alert: 0
         });
         if(!error){
             const obj = {
@@ -112,7 +112,7 @@ export default class Dashboard extends Component {
             axios.post("http://localhost:8080/addEvent", obj)
                 .then((res) => {
                     console.log("done");
-                    this.setState({ alert: false });
+                    this.setState({ alert: 0 });
                     this.reset();
                     window.location.reload(false);
                 })
@@ -120,14 +120,14 @@ export default class Dashboard extends Component {
                     console.log(error);
                     this.setState({
                         alertMsg: "Server is under maintanace, please try again later!",
-                        alert: true,
+                        alert: 1,
                         loading: false
                     });
                 });        
         }
         else{
             this.setState({ 
-                alert: true,
+                alert: 1,
                 loading: false 
             });
         }     
@@ -197,11 +197,11 @@ export default class Dashboard extends Component {
                                         </center>
                                     </Row>
                                     
-                                    { this.state.alert ?
+                                    { this.state.alert === 1 ?
                                         <Alert color="info" status={this.state.alert}>
                                             {this.state.alertMsg}
                                         </Alert>
-                                    : null}
+                                    : null }
                                     <Row>
                                         <Col xs="6" sm="6">
                                             <Button outline color="info" onClick={this.reset} block>Reset</Button>
