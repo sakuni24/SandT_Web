@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import { Container, Spinner, Row, Col, Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Modal, ModalBody, ModalHeader, Container, Spinner, Row, Col, Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import DatePicker from 'reactstrap-date-picker';
 import AdminNav from "../../../Components/AdminNav.component";
 import Logo from "../../../Images/logo.jpg";
@@ -23,6 +23,7 @@ export default class EditEvent extends Component {
             description: "",
             headCount: "",
             dateValue: new Date().toISOString(),
+            modal: false
         };
     }
 
@@ -56,8 +57,17 @@ export default class EditEvent extends Component {
         });   
     };
 
-    delete = e => {
+    toggle = () => {
+        this.setState({
+          modal: !this.state.modal,
+        });
+    };
     
+    delete = async () => {
+        await axios.delete("http://localhost:8080/deleteEvent/"+this.props.id)
+        .then(res => {
+            window.location.reload(false);
+        }) 
     };
 
     validate = () => {
@@ -152,6 +162,16 @@ export default class EditEvent extends Component {
         }
         return (
             <React.Fragment>
+                { this.state.modal ?
+                    <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                        <ModalHeader toggle={this.toggle}>Are you sure?</ModalHeader>
+                        <ModalBody>
+                        <div className="container">
+                            <Button outline color="info" onClick={this.delete} block>Yes</Button>
+                        </div>
+                        </ModalBody>
+                    </Modal>
+                : null }
                 <AdminNav/>
                 <Container>
                     <Row>
@@ -220,7 +240,7 @@ export default class EditEvent extends Component {
                                     : null }
                                     <Row>
                                         <Col xs="6" sm="6">
-                                            <Button outline color="info" onClick={this.delete} block>Delete</Button>
+                                            <Button outline color="info" onClick={this.toggle} block>Delete</Button>
                                         </Col>
                                         <Col xs="6" sm="6">
                                             <Button outline color="info" type="submit" length="100" block>Edit</Button>
