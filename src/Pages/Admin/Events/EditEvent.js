@@ -5,7 +5,7 @@ import DatePicker from 'reactstrap-date-picker';
 import AdminNav from "../../../Components/AdminNav.component";
 import Logo from "../../../Images/logo.jpg";
 
-export default class addEvent extends Component {
+export default class EditEvent extends Component {
    
     
     constructor(props) {
@@ -219,4 +219,3 @@ export default class addEvent extends Component {
         );
     }  
 }
-

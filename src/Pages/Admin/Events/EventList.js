@@ -4,7 +4,7 @@ import {Row, CardDeck, Col, Container,Card, CardHeader, CardBody } from "reactst
 import AdminNav from "../../../Components/AdminNav.component";
 import Calendar from "./Calendar";
 
-export default class EditEvents extends Component {
+export default class EventList extends Component {
 
     constructor(props) {
         super(props)
@@ -20,14 +20,16 @@ export default class EditEvents extends Component {
 
     render() {   
         return (
-            
+    
             <React.Fragment> 
             <AdminNav/>      
             <Container>
                 <Row>
+                <div className="center">
                     <Calendar/>
+                    </div>
                 </Row>
-                <Row> 
+                {/* <Row> 
                     <div style={{ marginTop: "20px" }}>
                         <CardDeck>
                         {this.state.EventList.map(function(event, index) {
@@ -52,7 +54,7 @@ export default class EditEvents extends Component {
                         })}    
                         </CardDeck>          
                     </div>  
-                </Row> 
+                </Row>  */}
             </Container>        
             </React.Fragment>
         )  
