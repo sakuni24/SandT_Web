@@ -1,35 +1,44 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import {Row, CardDeck, Col, Container,Card, CardHeader, CardBody } from "reactstrap";
+import { Spinner, Row, CardDeck, Col, Container,Card, CardHeader, CardBody } from "reactstrap";
 import AdminNav from "../../../Components/AdminNav.component";
-import Calendar from "./Calendar";
 
 export default class EventList extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {EventList: []}
+        this.state = {
+            EventList: [],
+            loading: true
+        }
     }
 
     componentDidMount = async () => {
         await axios.get("http://localhost:8080/findAllEvents")
         .then(res => {
-            this.setState({ EventList: res.data })
+            this.setState({ 
+                EventList: res.data,
+                loading: false
+            })
         }) 
     }
 
-    render() {   
+    render() { 
+        if (this.state.loading){
+            return(
+                <React.Fragment>
+                    <AdminNav/>
+                    <div className="middle">
+                        <Spinner color="info" style={{ width: '100', height: '100' }}/>
+                    </div>
+                </React.Fragment>
+            )
+        }     
         return (
-    
             <React.Fragment> 
             <AdminNav/>      
             <Container>
-                <Row>
-                <div className="center">
-                    <Calendar/>
-                    </div>
-                </Row>
-                {/* <Row> 
+                <Row> 
                     <div style={{ marginTop: "20px" }}>
                         <CardDeck>
                         {this.state.EventList.map(function(event, index) {
@@ -54,7 +63,7 @@ export default class EventList extends Component {
                         })}    
                         </CardDeck>          
                     </div>  
-                </Row>  */}
+                </Row> 
             </Container>        
             </React.Fragment>
         )  

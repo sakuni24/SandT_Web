@@ -13,6 +13,7 @@ export default class EditEvent extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     
         this.state = {
+            fieldLoading: true,
             loading: false,
             alert: 0,
             alertMsg: "",
@@ -21,8 +22,23 @@ export default class EditEvent extends Component {
             venue: "",
             description: "",
             headCount: "",
-            dateValue: new Date().toISOString()
+            dateValue: new Date().toISOString(),
         };
+    }
+
+    componentDidMount = async () => {
+        await axios.get("http://localhost:8080/findAllEvents/"+this.props.id)
+        .then(res => {
+            this.setState({ 
+                dateValue: res.data.date,
+                name: res.data.name,
+                date: res.data.date,
+                venue: res.data.venue,
+                description: res.data.description,
+                headCount: res.data.headCount,
+                fieldLoading: false
+            })
+        }) 
     }
 
     closeAlert = () => {
@@ -40,19 +56,8 @@ export default class EditEvent extends Component {
         });   
     };
 
-    reset = e => {
-        this.setState({
-            alert: 0,
-            alertMsg: "",
-            name: "",
-            date: "",
-            venue: "",
-            description: "",
-            headCount: "",
-            dateValue: new Date().toISOString()
-
-        });
-        document.getElementById("form").reset();
+    delete = e => {
+    
     };
 
     validate = () => {
@@ -101,6 +106,7 @@ export default class EditEvent extends Component {
         });
         if(!error){
             const obj = {
+                id: this.props.id,
                 name: this.state.name,
                 date: document.getElementById("datepicker").value.substring(0, 10),
                 venue: this.state.venue,
@@ -109,7 +115,7 @@ export default class EditEvent extends Component {
                 available: this.state.headCount
             };
             console.log(obj);
-            axios.post("http://localhost:8080/addEvent", obj)
+            axios.post("http://localhost:8080/updateEvent", obj)
                 .then((res) => {
                     console.log("done");
                     this.setState({ alert: 0 });
@@ -134,6 +140,16 @@ export default class EditEvent extends Component {
     }
     
     render(){
+        if (this.state.fieldLoading){
+            return(
+                <React.Fragment>
+                    <AdminNav/>
+                    <div className="middle">
+                        <Spinner color="info" style={{ width: '100', height: '100' }}/>
+                    </div>
+                </React.Fragment>
+            )
+        }
         return (
             <React.Fragment>
                 <AdminNav/>
@@ -158,7 +174,7 @@ export default class EditEvent extends Component {
                                         <Col xs="12" sm="8">
                                             <FormGroup>
                                                 <Label for="name">Event Name</Label>
-                                                <Input type="text" name="name" id="name" placeholder="Astro" onChange={this.onChange}/>
+                                                <Input type="text" name="name" id="name" value={this.state.name} onChange={this.onChange}/>
                                             </FormGroup>
                                         </Col>
                                         <Col xs="12" sm="4">
@@ -173,20 +189,20 @@ export default class EditEvent extends Component {
                                         <Col xs="12" sm="9">
                                             <FormGroup>
                                                 <Label for="venue">Venue</Label>
-                                                <Input type="text" name="venue" id="venue" placeholder="Colombo" onChange={this.onChange}/>
+                                                <Input type="text" name="venue" id="venue" value={this.state.venue} onChange={this.onChange}/>
                                             </FormGroup>
                                         </Col>
                                         <Col xs="12" sm="3">
                                             <FormGroup>
                                                 <Label for="headCount">Head Count</Label>
-                                                <Input height="2" type="number" name="headCount" id="headCount" placeholder="25" onChange={this.onChange}/>
+                                                <Input height="2" type="number" name="headCount" id="headCount" value={this.state.headCount} onChange={this.onChange}/>
                                             </FormGroup>
                                         </Col>
                                     </Row>
            
                                     <FormGroup>
                                         <Label for="description">Description</Label>
-                                        <Input type="textarea" name="description" id="description" onChange={this.onChange}/>
+                                        <Input type="textarea" name="description" id="description" value={this.state.description} onChange={this.onChange}/>
                                     </FormGroup>
                                     
                                     <Row xs="12" sm="12">
@@ -204,10 +220,10 @@ export default class EditEvent extends Component {
                                     : null }
                                     <Row>
                                         <Col xs="6" sm="6">
-                                            <Button outline color="info" onClick={this.reset} block>Reset</Button>
+                                            <Button outline color="info" onClick={this.delete} block>Delete</Button>
                                         </Col>
                                         <Col xs="6" sm="6">
-                                            <Button outline color="info" type="submit" length="100" block>Add</Button>
+                                            <Button outline color="info" type="submit" length="100" block>Edit</Button>
                                         </Col>
                                     </Row>        
                                 </Form>
