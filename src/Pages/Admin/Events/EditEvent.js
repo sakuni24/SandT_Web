@@ -66,7 +66,7 @@ export default class EditEvent extends Component {
     delete = async () => {
         await axios.delete("http://localhost:8080/deleteEvent/"+this.props.match.params.id)
         .then(res => {
-            window.location.reload(false);
+            this.props.history.goBack();
         }) 
     };
 
