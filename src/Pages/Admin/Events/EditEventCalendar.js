@@ -5,7 +5,7 @@ import DatePicker from 'reactstrap-date-picker';
 import AdminNav from "../../../Components/AdminNav.component";
 import Logo from "../../../Images/logo.jpg";
 
-export default class EditEvent extends Component {
+export default class EditEventCalendar extends Component {
    
     
     constructor(props) {
@@ -28,7 +28,7 @@ export default class EditEvent extends Component {
     }
 
     componentDidMount = async () => {
-        await axios.get("http://localhost:8080/findAllEvents/"+this.props.match.params.id)
+        await axios.get("http://localhost:8080/findAllEvents/"+this.props.id)
         .then(res => {
             this.setState({ 
                 dateValue: res.data.date,
@@ -64,7 +64,7 @@ export default class EditEvent extends Component {
     };
     
     delete = async () => {
-        await axios.delete("http://localhost:8080/deleteEvent/"+this.props.match.params.id)
+        await axios.delete("http://localhost:8080/deleteEvent/"+this.props.id)
         .then(res => {
             window.location.reload(false);
         }) 
@@ -116,7 +116,7 @@ export default class EditEvent extends Component {
         });
         if(!error){
             const obj = {
-                id: this.props.match.params.id,
+                id: this.props.id,
                 name: this.state.name,
                 date: document.getElementById("datepicker").value.substring(0, 10),
                 venue: this.state.venue,

@@ -14,7 +14,7 @@ export default class AdminRoutes extends Component {
                 <Route path="/admin/dashboard" component={Dashboard}/>
                 <Route path="/admin/addevents" component={AddEvents}/>
                 <Route path="/admin/eventlist" component={EventList}/>
-                <Route path="/admin/editevent" component={EditEvent}/>
+                <Route path="/admin/editevent/:id" component={EditEvent}/>
                 <Route path="/admin/eventcalendar" component={Calendar}/>
             </Router>
         );

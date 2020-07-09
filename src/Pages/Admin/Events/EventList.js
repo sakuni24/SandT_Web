@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import axios from "axios";
 import { Spinner, Row, CardDeck, Col, Container,Card, CardHeader, CardBody } from "reactstrap";
 import AdminNav from "../../../Components/AdminNav.component";
-
+import { Link } from 'react-router-dom';
 export default class EventList extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             EventList: [],
-            loading: true
+            loading: true,
         }
     }
 
@@ -33,7 +33,7 @@ export default class EventList extends Component {
                     </div>
                 </React.Fragment>
             )
-        }     
+        }      
         return (
             <React.Fragment> 
             <AdminNav/>      
@@ -51,7 +51,8 @@ export default class EventList extends Component {
                                         </CardHeader>
                                         <CardBody>
                                             Date : {event.date}<br/>
-                                            Venue : {event.venue}
+                                            Venue : {event.venue}<br/>
+                                            <Link to={"/admin/editevent/"+event.id}>Edit or Delete</Link>
                                         </CardBody>
                                         <h6 style={{ color: "#6d6d6d", paddingLeft: "13px", fontSize: "2" }}><small>
                                         </small>

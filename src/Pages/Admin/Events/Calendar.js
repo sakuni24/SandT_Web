@@ -5,7 +5,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import AdminNav from "../../../Components/AdminNav.component";
-import EditEvent from "./EditEvent";
+import EditEventCalendar from "./EditEventCalendar";
 var events; 
 
 export default class Calendar extends Component {
@@ -61,7 +61,7 @@ export default class Calendar extends Component {
         else if (this.state.clicked){
             return(
                 <React.Fragment>
-                    <EditEvent 
+                    <EditEventCalendar 
                         id={this.state.clickedId}
                         name={this.state.clickedTitle}
                         date={this.state.clickedDate}
