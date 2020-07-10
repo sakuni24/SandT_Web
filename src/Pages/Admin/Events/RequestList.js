@@ -83,7 +83,7 @@ export default class RequestList extends Component {
                                                     <td><FontAwesomeIcon icon={faAddressBook}/> {request.number}</td>
                                                     <td><FontAwesomeIcon icon={faEnvelope}/> {request.email}</td>
                                                     <td><FontAwesomeIcon icon={faUsers}/> {request.heads}</td>  
-                                                    <td><Button outline color="success" block>Confirm</Button></td>  
+                                                    <td><Button outline color="success" href={"/admin/confirmrequest/"+request.id} block>Confirm</Button></td>  
                                                     <td><Button outline color="danger" href={"/admin/rejectrequest/"+request.id} block>Reject</Button></td>
                                                 </tr>
                                             </React.Fragment>

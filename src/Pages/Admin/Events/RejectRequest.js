@@ -26,7 +26,10 @@ export default class RejectRequest extends Component {
         await axios.get("http://localhost:8080/getEventRequests/"+this.props.match.params.id)
         .then(res => {
             this.delete(res.data.eventId);
-        }) 
+        })
+        .catch((error) => {
+            this.props.history.push("/admin/eventlist/");
+        });   
     }
 
     render() { 
