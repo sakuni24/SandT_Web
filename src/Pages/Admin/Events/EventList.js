@@ -38,7 +38,7 @@ export default class EventList extends Component {
             <React.Fragment> 
             <AdminNav/>      
             <Container>
-                <Row> 
+                <Row xs="12" sm="12"> 
                     <div style={{ marginTop: "20px" }}>
                         <CardDeck>
                         {this.state.EventList.map(function(event, index) {
