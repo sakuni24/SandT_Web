@@ -7,6 +7,7 @@ import EventList from "./Events/EventList";
 import Calendar from "./Events/Calendar";
 import RequestList from "./Events/RequestList";
 import ConfirmedList from "./Events/ConfirmedList";
+import RejectRequest from "./Events/RejectRequest";
 
 export default class AdminRoutes extends Component {
 
@@ -19,6 +20,7 @@ export default class AdminRoutes extends Component {
                 <Route path="/admin/editevent/:id" component={EditEvent}/>
                 <Route path="/admin/requestlist/:id" component={RequestList}/>
                 <Route path="/admin/confirmedlist/:id" component={ConfirmedList}/>
+                <Route path="/admin/rejectrequest/:id" component={RejectRequest}/>
                 <Route path="/admin/eventcalendar" component={Calendar}/>
             </Router>
         );

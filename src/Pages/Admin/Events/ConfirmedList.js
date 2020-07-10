@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import { Modal, ModalBody, ModalHeader, Container, Spinner, Row, Col, Button, Card, CardBody, CardDeck, CardHeader } from 'reactstrap';
+import { Table, Modal, ModalBody, ModalHeader, Container, Spinner, Button } from 'reactstrap';
 import AdminNav from "../../../Components/AdminNav.component";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faUsers, faAddressBook, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 export default class ConfirmedList extends Component {
    
@@ -50,34 +52,24 @@ export default class ConfirmedList extends Component {
                 : null }
                 <AdminNav/>
                 <Container>
-                    <Row xs="12" sm="12"> 
                         <div style={{ marginTop: "20px" }}>
-                            <CardDeck>
-                            {this.state.RequestList.map(function(request, index) {
-                                return (
-                                    <React.Fragment key={index}>
-                                        <Col xs="12" sm="6">
-                                        <Card style={{ marginTop: "20px", marginBottom: "10px" }} body outline color="info">
-                                            <CardHeader color="info">
-                                                <h6>{request.name}</h6>
-                                            </CardHeader>
-                                            <CardBody>
-                                                Number : {request.number}<br/>
-                                                Email : {request.email}<br/>
-                                                Heads : {request.heads}<br/>
-                                                {/* <Link to={"/admin/editevent/"+event.id}>Edit or Delete</Link> */}
-                                            </CardBody>
-                                            <h6 style={{ color: "#6d6d6d", paddingLeft: "13px", fontSize: "2" }}><small>
-                                            </small>
-                                            </h6>                      
-                                        </Card>
-                                        </Col>
-                                    </React.Fragment>
-                                );
-                            })}    
-                            </CardDeck>          
+                            <Table>
+                                <tbody>
+                                    {this.state.RequestList.map(function(request, index) {
+                                        return (
+                                            <React.Fragment key={index}>
+                                                <tr>
+                                                    <td><FontAwesomeIcon icon={faUser}/> {request.name}</td>
+                                                    <td><FontAwesomeIcon icon={faAddressBook}/> {request.number}</td>
+                                                    <td><FontAwesomeIcon icon={faEnvelope}/> {request.email}</td>
+                                                    <td><FontAwesomeIcon icon={faUsers}/> {request.heads}</td>    
+                                                </tr>
+                                            </React.Fragment>
+                                        );
+                                    })}  
+                                </tbody>  
+                            </Table>          
                         </div>  
-                    </Row>
                 </Container>
             </React.Fragment>
         );

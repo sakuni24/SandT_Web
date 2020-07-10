@@ -188,6 +188,14 @@ export default class EditEvent extends Component {
 
                         <Col  xs="12" sm="7">
                             <div className="center">
+                                <Row>
+                                    <Col xs="6" sm="6">
+                                        <Button outline color="info" href={"/admin/requestlist/"+this.props.match.params.id} block>Request List</Button>
+                                    </Col>
+                                    <Col xs="6" sm="6">
+                                        <Button outline color="info" href={"/admin/confirmedlist/"+this.props.match.params.id} block>Confirmed List</Button>
+                                    </Col>
+                                </Row>
                                 <Form id="form" onSubmit={this.onSubmit}>
                                     <Row>
                                         <Col xs="12" sm="8">
@@ -244,15 +252,7 @@ export default class EditEvent extends Component {
                                         <Col xs="6" sm="6">
                                             <Button outline color="info" type="submit" length="100" block>Edit</Button>
                                         </Col>
-                                    </Row> 
-                                    <Row>
-                                        <Col xs="6" sm="6">
-                                            <Button outline color="info" href={"/admin/requestlist/"+this.props.match.params.id} block>Request List</Button>
-                                        </Col>
-                                        <Col xs="6" sm="6">
-                                            <Button outline color="info" href={"/admin/confirmedlist/"+this.props.match.params.id} block>Confirmed List</Button>
-                                        </Col>
-                                    </Row>       
+                                    </Row>         
                                 </Form>
                             </div>
                         </Col>

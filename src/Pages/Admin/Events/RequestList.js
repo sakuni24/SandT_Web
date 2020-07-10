@@ -10,7 +10,7 @@ export default class RequestList extends Component {
     
     constructor(props) {
         super(props);
-    
+        this.confirm = this.confirm.bind(this);
         this.state = {
             RequestList: [],
             loading: true,
@@ -40,7 +40,13 @@ export default class RequestList extends Component {
             this.props.history.goBack();
         }) 
     };
+
+    confirm = e => {
+        console.log("confirm");
+    };
     
+  
+
     render(){
         if (this.state.loading){
             return(
@@ -66,24 +72,26 @@ export default class RequestList extends Component {
                 : null }
                 <AdminNav/>
                 <Container>
-                    
                         <div style={{ marginTop: "20px" }}>
                             <Table>
-                            {this.state.RequestList.map(function(request, index) {
-                                return (
-                                    <React.Fragment key={index}>
-                                        <tr>
-                                            <td><FontAwesomeIcon icon={faUser}/> {request.name}</td>
-                                            <td><FontAwesomeIcon icon={faAddressBook}/> {request.number}</td>
-                                            <td><FontAwesomeIcon icon={faEnvelope}/> {request.email}</td>
-                                            <td><FontAwesomeIcon icon={faUsers}/> {request.heads}</td>    
-                                        </tr>
-                                    </React.Fragment>
-                                );
-                            })}    
+                                <tbody>
+                                    {this.state.RequestList.map(function(request, index) {
+                                        return (
+                                            <React.Fragment key={index}>
+                                                <tr>
+                                                    <td><FontAwesomeIcon icon={faUser}/> {request.name}</td>
+                                                    <td><FontAwesomeIcon icon={faAddressBook}/> {request.number}</td>
+                                                    <td><FontAwesomeIcon icon={faEnvelope}/> {request.email}</td>
+                                                    <td><FontAwesomeIcon icon={faUsers}/> {request.heads}</td>  
+                                                    <td><Button outline color="success" block>Confirm</Button></td>  
+                                                    <td><Button outline color="danger" href={"/admin/rejectrequest/"+request.id} block>Reject</Button></td>
+                                                </tr>
+                                            </React.Fragment>
+                                        );
+                                    })}    
+                                </tbody>
                             </Table>          
                         </div>  
-                    
                 </Container>
             </React.Fragment>
         );
