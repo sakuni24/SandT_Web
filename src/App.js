@@ -8,6 +8,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <Router>
+        
           <Route path="/admin" component={AdminRoutes}/>
         </Router>
         </React.Fragment>

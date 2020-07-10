@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { Spinner, Row, CardDeck, Col, Container,Card, CardHeader, CardBody } from "reactstrap";
+import { Table, Spinner, Container } from "reactstrap";
 import AdminNav from "../../../Components/AdminNav.component";
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarAlt, faStar, faMapMarkerAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 export default class EventList extends Component {
 
     constructor(props) {
@@ -36,35 +38,28 @@ export default class EventList extends Component {
         }      
         return (
             <React.Fragment> 
-            <AdminNav/>      
+            <AdminNav/> 
             <Container>
-                <Row xs="12" sm="12"> 
+                
                     <div style={{ marginTop: "20px" }}>
-                        <CardDeck>
+                        <Table>
+                            <tbody>
                         {this.state.EventList.map(function(event, index) {
                             return (
                                 <React.Fragment key={index}>
-                                    <Col xs="12" sm="6">
-                                    <Card style={{ marginTop: "20px", marginBottom: "10px" }} body outline color="info">
-                                        <CardHeader color="info">
-                                            <h6>{event.name}</h6>
-                                        </CardHeader>
-                                        <CardBody>
-                                            Date : {event.date}<br/>
-                                            Venue : {event.venue}<br/>
-                                            <Link to={"/admin/editevent/"+event.id}>Edit or Delete</Link>
-                                        </CardBody>
-                                        <h6 style={{ color: "#6d6d6d", paddingLeft: "13px", fontSize: "2" }}><small>
-                                        </small>
-                                        </h6>                      
-                                    </Card>
-                                    </Col>
+                                    <tr>
+                                        <td><FontAwesomeIcon icon={faStar}/> {event.name}</td>
+                                        <td><FontAwesomeIcon icon={faCalendarAlt}/> {event.date}</td>
+                                        <td><FontAwesomeIcon icon={faMapMarkerAlt}/> {event.venue}</td>
+                                        <td><FontAwesomeIcon icon={faEdit}/> <Link to={"/admin/editevent/"+event.id}>Edit/Delete</Link></td>    
+                                    </tr>
                                 </React.Fragment>
                             );
-                        })}    
-                        </CardDeck>          
+                        })}  
+                        </tbody>  
+                        </Table>          
                     </div>  
-                </Row> 
+                
             </Container>        
             </React.Fragment>
         )  
