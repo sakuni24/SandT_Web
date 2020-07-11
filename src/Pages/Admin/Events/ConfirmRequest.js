@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { Spinner } from "reactstrap";
+import { Spinner, Modal, ModalBody, ModalHeader, Button } from "reactstrap";
 import AdminNav from "../../../Components/AdminNav.component";
 
 export default class RejectRequest extends Component {
@@ -23,6 +23,7 @@ export default class RejectRequest extends Component {
             Evenue: "",
             Edescription: "",
             EheadCount: "",
+            modal: false,
         }
     }
 
@@ -55,8 +56,10 @@ export default class RejectRequest extends Component {
 
     addToConfirmed = async () => {
         if(parseInt(this.state.heads) > parseInt(this.state.available)){
-            this.delete();
-            console.log("delete");
+            this.setState({
+                loading : false,
+                modal : true
+            });
         }
         else{
             const obj = {
@@ -122,7 +125,17 @@ export default class RejectRequest extends Component {
             )
         }      
         return (
-            <React.Fragment> 
+            <React.Fragment>
+                { this.state.modal ?
+                    <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                        <ModalHeader toggle={this.toggle}>You can't accept more than your available seats so this request will always reject</ModalHeader>
+                        <ModalBody>
+                        <div className="container">
+                            <Button outline color="info" onClick={this.delete} block>I uderstand</Button>
+                        </div>
+                        </ModalBody>
+                    </Modal>
+                : null } 
                 <AdminNav/>   
             </React.Fragment>
         )  

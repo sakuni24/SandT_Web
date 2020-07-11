@@ -188,6 +188,14 @@ export default class EditEventCalendar extends Component {
 
                         <Col  xs="12" sm="7">
                             <div className="center">
+                                <Row>
+                                    <Col xs="6" sm="6">
+                                        <Button outline color="info" href={"/admin/requestlist/"+this.props.id} block>Request List</Button>
+                                    </Col>
+                                    <Col xs="6" sm="6">
+                                        <Button outline color="info" href={"/admin/confirmedlist/"+this.props.id} block>Confirmed List</Button>
+                                    </Col>
+                                </Row>
                                 <Form id="form" onSubmit={this.onSubmit}>
                                     <Row>
                                         <Col xs="12" sm="8">
