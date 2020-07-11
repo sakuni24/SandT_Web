@@ -64,10 +64,16 @@ export default class EditEventCalendar extends Component {
     };
     
     delete = async () => {
-        await axios.delete("http://localhost:8080/deleteEvent/"+this.props.id)
+        await axios.delete("http://localhost:8080/deleteEventRequestByEventId/"+this.props.id)
         .then(res => {
-            window.location.reload(false);
-        }) 
+            axios.delete("http://localhost:8080/deleteConfirmedEventRequestByEventId/"+this.props.id)
+            .then(res => {
+                axios.delete("http://localhost:8080/deleteEvent/"+this.props.id)
+                .then(res => {
+                    window.location.reload(false);
+                }) 
+            }) 
+        })       
     };
 
     validate = () => {

@@ -128,9 +128,10 @@ export default class RejectRequest extends Component {
             <React.Fragment>
                 { this.state.modal ?
                     <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                        <ModalHeader toggle={this.toggle}>You can't accept more than your available seats so this request will always reject</ModalHeader>
+                        <ModalHeader toggle={this.toggle}>Request was automatically rejected through the system</ModalHeader>
                         <ModalBody>
                         <div className="container">
+                            Because you don't have enough available seats for the request
                             <Button outline color="info" onClick={this.delete} block>I uderstand</Button>
                         </div>
                         </ModalBody>

@@ -64,10 +64,16 @@ export default class EditEvent extends Component {
     };
     
     delete = async () => {
-        await axios.delete("http://localhost:8080/deleteEvent/"+this.props.match.params.id)
+        await axios.delete("http://localhost:8080/deleteEventRequestByEventId/"+this.props.match.params.id)
         .then(res => {
-            this.props.history.goBack();
-        }) 
+            axios.delete("http://localhost:8080/deleteConfirmedEventRequestByEventId/"+this.props.match.params.id)
+            .then(res => {
+                axios.delete("http://localhost:8080/deleteEvent/"+this.props.match.params.id)
+                .then(res => {
+                    this.props.history.goBack();
+                }) 
+            }) 
+        })       
     };
 
     validate = () => {
