@@ -1,52 +1,41 @@
 {
-  "name": "sntweb",
+  "name": "webapp",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.29",
-    "@fortawesome/free-solid-svg-icons": "^5.13.1",
-    "@fortawesome/react-fontawesome": "^0.1.11",
-    "@fullcalendar/daygrid": "^5.1.0",
-    "@fullcalendar/interaction": "^5.1.0",
-    "@fullcalendar/list": "^5.1.0",
-    "@fullcalendar/react": "^5.1.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.19.2",
-    "bootstrap": "^4.5.0",
-    "bootstrap-social": "^5.1.1",
-    "react": "^16.13.1",
-    "react-bootstrap": "^1.0.0-beta.12",
-    "react-dom": "^16.13.1",
-    "react-popper": "^2.2.3",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "reactstrap": "^8.5.1",
-    "reactstrap-date-picker": "0.0.9"
-  },
+  "main": "index.js",
+  "author": "JavaSampleApproach",
+  "license": "MIT",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "webpack-dev-server --hot",
+    "serve": "live-server public",
+    "build": "webpack",
+    "dev-server": "webpack-dev-server"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "babel-cli": "6.24.1",
+    "babel-core": "6.25.0",
+    "babel-loader": "7.1.4",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-react": "6.24.1",
+    "css-loader": "0.28.11",
+    "node-sass": "4.8.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-modal": "3.3.2",
+    "react-redux": "5.0.7",
+    "react-router-dom": "4.2.2",
+    "redux": "3.7.2",
+    "sass-loader": "6.0.7",
+    "style-loader": "0.20.3",
+    "webpack": "4.4.1",
+    "redux-thunk": "2.2.0",
+    "axios": "0.18.0"
   },
   "devDependencies": {
-    "@zeit/next-css": "^1.0.1"
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-hot-middleware": "^2.25.0"
   }
 }
